@@ -1,24 +1,27 @@
 'use client';
 
 import { useState } from 'react';
+import { registerUser } from '../api/registerUser';
 
 export default function RegisterUserPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Log the form data (or send it to an API)
-    console.log({
-      username,
-      email,
-      password,
-    });
+    try {
+      const response = await registerUser({ 
+          name: username, 
+          email, 
+          password 
+      });
+      console.log('Registration successful:', response); 
+  } catch (error) {
+      console.error('Registration failed:', error);
+  }
     
-    // Optionally reset the form or show a success message
     setUsername('');
     setEmail('');
     setPassword('');
@@ -37,7 +40,7 @@ export default function RegisterUserPage() {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
             required
           />
         </div>
@@ -50,7 +53,7 @@ export default function RegisterUserPage() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
             required
           />
         </div>
@@ -63,7 +66,7 @@ export default function RegisterUserPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
             required
           />
         </div>
