@@ -1,0 +1,37 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: website-deployment 
+  labels: 
+    app: website 
+spec: 
+  replicas: 3 
+  selector: 
+    matchLabels: 
+      app: website 
+  template: 
+    metadata: 
+      labels:
+       app: website
+    spec:
+      containers:
+      - name: website-container
+        image: gcr.io/your-project-id/website:latest
+        ports: 
+        - containerPort: 3000
+        envFrom:
+          - configMapRef:
+              name: website-config
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: website-service 
+spec:
+  type: LoadBalancer
+  selector: 
+    app: website 
+  ports: 
+    - protocol: TCP 
+      port: 3001
+      targetPort: 3000
