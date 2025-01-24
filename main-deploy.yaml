@@ -17,9 +17,6 @@ spec:
       containers:
       - name: website-container
         image: pilotkode/simple-nextjs
-        command: ["/bin/sh", "-c"]
-        args:
-        - "NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL} npm run start"
         ports: 
         - containerPort: 3000
         envFrom:
