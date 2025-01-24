@@ -17,6 +17,8 @@ export default function RegisterUserPage() {
           email, 
           password 
       });
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+      console.log("Using Backend URL:", backendUrl);
       console.log('Registration successful:', response); 
   } catch (error) {
       console.error('Registration failed:', error);
